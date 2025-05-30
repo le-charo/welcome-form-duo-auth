@@ -36,10 +36,13 @@ const AuthPage = () => {
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           
-          {/* Animated background elements */}
-          <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-40 right-20 w-24 h-24 bg-purple-300/20 rounded-full blur-lg animate-bounce"></div>
-          <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-300/20 rounded-full blur-md animate-pulse delay-1000"></div>
+          {/* Animated background elements with floating motion */}
+          <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl animate-[float1_6s_ease-in-out_infinite]"></div>
+          <div className="absolute bottom-40 right-20 w-24 h-24 bg-purple-300/20 rounded-full blur-lg animate-[float2_8s_ease-in-out_infinite]"></div>
+          <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-300/20 rounded-full blur-md animate-[float3_5s_ease-in-out_infinite]"></div>
+          <div className="absolute top-32 right-32 w-20 h-20 bg-white/15 rounded-full blur-lg animate-[float4_7s_ease-in-out_infinite]"></div>
+          <div className="absolute bottom-20 left-1/3 w-28 h-28 bg-cyan-300/20 rounded-full blur-xl animate-[float5_9s_ease-in-out_infinite]"></div>
+          <div className="absolute top-2/3 right-16 w-12 h-12 bg-pink-300/25 rounded-full blur-sm animate-[float6_4s_ease-in-out_infinite]"></div>
           
           <div className="relative z-10 flex flex-col justify-center items-start p-12 text-white">
             <div className="flex items-center mb-8">
@@ -242,6 +245,48 @@ const AuthPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Custom CSS for floating animations */}
+        <style jsx>{`
+          @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(90deg); }
+            50% { transform: translate(-20px, -40px) rotate(180deg); }
+            75% { transform: translate(-40px, 20px) rotate(270deg); }
+          }
+          
+          @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-25px, 30px) rotate(120deg); }
+            66% { transform: translate(35px, -15px) rotate(240deg); }
+          }
+          
+          @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(15px, -25px) rotate(72deg); }
+            40% { transform: translate(-30px, -10px) rotate(144deg); }
+            60% { transform: translate(20px, 35px) rotate(216deg); }
+            80% { transform: translate(-10px, 15px) rotate(288deg); }
+          }
+          
+          @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-35px, 25px) rotate(180deg); }
+          }
+          
+          @keyframes float5 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, -30px) rotate(90deg); }
+            50% { transform: translate(40px, -10px) rotate(180deg); }
+            75% { transform: translate(10px, 25px) rotate(270deg); }
+          }
+          
+          @keyframes float6 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(20px, -20px) rotate(120deg); }
+            66% { transform: translate(-15px, 30px) rotate(240deg); }
+          }
+        `}</style>
       </div>
     </div>
   );

@@ -29,52 +29,52 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Side - Welcome Section */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        
-        {/* Animated background elements */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-20 w-24 h-24 bg-purple-300/20 rounded-full blur-lg animate-bounce"></div>
-        <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-300/20 rounded-full blur-md animate-pulse delay-1000"></div>
-        
-        <div className="relative z-10 flex flex-col justify-center items-start p-12 text-white">
-          <div className="flex items-center mb-8">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 border border-white/30">
-              <Sparkles className="w-6 h-6 text-white" />
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+      <div className="w-full max-w-5xl flex bg-white rounded-2xl shadow-2xl overflow-hidden">
+        {/* Left Side - Welcome Section */}
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          
+          {/* Animated background elements */}
+          <div className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-40 right-20 w-24 h-24 bg-purple-300/20 rounded-full blur-lg animate-bounce"></div>
+          <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-300/20 rounded-full blur-md animate-pulse delay-1000"></div>
+          
+          <div className="relative z-10 flex flex-col justify-center items-start p-12 text-white">
+            <div className="flex items-center mb-8">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 border border-white/30">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold">Lovable</h1>
             </div>
-            <h1 className="text-3xl font-bold">Lovable</h1>
-          </div>
-          
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-            Welcome to the
-            <span className="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-              Future
-            </span>
-          </h2>
-          
-          <p className="text-lg text-white/80 mb-8 max-w-md leading-relaxed">
-            Join thousands of users who trust our platform for secure, seamless authentication. 
-            Experience the next generation of user management.
-          </p>
-          
-          <div className="flex items-center space-x-4">
-            <div className="flex -space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full border-2 border-white"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full border-2 border-white"></div>
-              <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-2 border-white"></div>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              Welcome to the
+              <span className="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
+                Future
+              </span>
+            </h2>
+            
+            <p className="text-lg text-white/80 mb-8 max-w-md leading-relaxed">
+              Join thousands of users who trust our platform for secure, seamless authentication. 
+              Experience the next generation of user management.
+            </p>
+            
+            <div className="flex items-center space-x-4">
+              <div className="flex -space-x-2">
+                <div className="w-10 h-10 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full border-2 border-white"></div>
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full border-2 border-white"></div>
+                <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-2 border-white"></div>
+              </div>
+              <span className="text-white/60">Trusted by 50k+ users</span>
             </div>
-            <span className="text-white/60">Trusted by 50k+ users</span>
           </div>
         </div>
-      </div>
 
-      {/* Right Side - Form Section */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
-        <Card className="w-full max-w-md bg-white shadow-2xl border-0">
-          <CardContent className="p-8">
+        {/* Right Side - Form Section */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+          <div className="w-full max-w-md">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 {isSignIn ? 'Welcome Back' : 'Create Account'}
@@ -235,8 +235,8 @@ const AuthPage = () => {
                 {isSignIn ? 'Sign up' : 'Sign in'}
               </button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

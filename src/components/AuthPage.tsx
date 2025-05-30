@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Mail, Eye, EyeOff, Sparkles } from 'lucide-react';
+import { Github, Mail, Eye, EyeOff, Bot } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 
 const AuthPage = () => {
@@ -43,22 +43,22 @@ const AuthPage = () => {
           
           <div className="relative z-10 flex flex-col justify-center items-start p-12 text-white">
             <div className="flex items-center mb-8">
-              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 border border-white/30">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 border border-white/30 group cursor-pointer">
+                <Bot className="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
               </div>
-              <h1 className="text-3xl font-bold">Lovable</h1>
+              <h1 className="text-3xl font-bold">MagicPrompt</h1>
             </div>
             
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              Welcome to the
+              Welcome to
               <span className="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-                Future
+                AI Magic
               </span>
             </h2>
             
             <p className="text-lg text-white/80 mb-8 max-w-md leading-relaxed">
-              Join thousands of users who trust our platform for secure, seamless authentication. 
-              Experience the next generation of user management.
+              Join thousands of creators who use MagicPrompt to generate amazing AI prompts. 
+              Experience the next generation of AI-powered creativity.
             </p>
             
             <div className="flex items-center space-x-4">
@@ -67,7 +67,7 @@ const AuthPage = () => {
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full border-2 border-white"></div>
                 <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-2 border-white"></div>
               </div>
-              <span className="text-white/60">Trusted by 50k+ users</span>
+              <span className="text-white/60">Trusted by 50k+ creators</span>
             </div>
           </div>
         </div>
@@ -76,13 +76,18 @@ const AuthPage = () => {
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <div className="text-center mb-8">
+              <div className="flex justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center group cursor-pointer shadow-lg">
+                  <Bot className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-125 group-hover:rotate-[360deg]" />
+                </div>
+              </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                {isSignIn ? 'Welcome Back' : 'Create Account'}
+                {isSignIn ? 'Welcome Back' : 'Join MagicPrompt'}
               </h3>
               <p className="text-gray-600">
                 {isSignIn 
-                  ? 'Sign in to your account to continue' 
-                  : 'Sign up to get started with your account'
+                  ? 'Sign in to continue creating amazing prompts' 
+                  : 'Sign up to start your AI prompt journey'
                 }
               </p>
             </div>
@@ -132,7 +137,7 @@ const AuthPage = () => {
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="h-12 border-2 focus:border-blue-500 transition-colors"
+                    className="h-12 border-2 focus:border-purple-500 transition-colors"
                     required={!isSignIn}
                   />
                 </div>
@@ -148,7 +153,7 @@ const AuthPage = () => {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="h-12 border-2 focus:border-blue-500 transition-colors"
+                  className="h-12 border-2 focus:border-purple-500 transition-colors"
                   required
                 />
               </div>
@@ -164,7 +169,7 @@ const AuthPage = () => {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="h-12 border-2 focus:border-blue-500 transition-colors pr-12"
+                    className="h-12 border-2 focus:border-purple-500 transition-colors pr-12"
                     required
                   />
                   <button
@@ -188,7 +193,7 @@ const AuthPage = () => {
                     placeholder="Confirm your password"
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    className="h-12 border-2 focus:border-blue-500 transition-colors"
+                    className="h-12 border-2 focus:border-purple-500 transition-colors"
                     required={!isSignIn}
                   />
                 </div>
@@ -200,7 +205,7 @@ const AuthPage = () => {
                     <input
                       id="remember"
                       type="checkbox"
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
                     />
                     <Label htmlFor="remember" className="ml-2 text-sm text-gray-600">
                       Remember me
@@ -208,7 +213,7 @@ const AuthPage = () => {
                   </div>
                   <button
                     type="button"
-                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                    className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                   >
                     Forgot password?
                   </button>
@@ -217,9 +222,9 @@ const AuthPage = () => {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-200 hover:scale-[1.02] shadow-lg"
+                className="w-full h-12 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium transition-all duration-200 hover:scale-[1.02] shadow-lg"
               >
-                {isSignIn ? 'Sign In' : 'Create Account'}
+                {isSignIn ? 'Sign In to MagicPrompt' : 'Create Account'}
               </Button>
             </form>
 
@@ -230,7 +235,7 @@ const AuthPage = () => {
               <button
                 type="button"
                 onClick={() => setIsSignIn(!isSignIn)}
-                className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
               >
                 {isSignIn ? 'Sign up' : 'Sign in'}
               </button>

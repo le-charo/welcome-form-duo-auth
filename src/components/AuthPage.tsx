@@ -214,47 +214,53 @@ const AuthPage = () => {
         .dark .hover\\:text-white:hover { color: #1f2937; }
       `}</style>
       
-      <div className={`min-h-screen flex items-center justify-center p-4 theme-transition ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div className={`min-h-screen flex items-center justify-center p-4 theme-transition ${
+        isDarkMode 
+          ? 'bg-gray-900' 
+          : 'bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200'
+      }`}>
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           className={`fixed top-6 right-6 z-50 p-3 rounded-full theme-transition ${
             isDarkMode 
               ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900' 
-              : 'bg-gray-800 hover:bg-gray-700 text-white'
+              : 'bg-slate-700 hover:bg-slate-600 text-white'
           } shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300`}
         >
           {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
 
-        <div className={`w-full max-w-5xl flex theme-transition rounded-2xl shadow-2xl overflow-hidden ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className={`w-full max-w-5xl flex theme-transition rounded-2xl shadow-2xl overflow-hidden ${
+          isDarkMode ? 'bg-gray-800' : 'bg-white/80 backdrop-blur-sm border border-slate-200/50'
+        }`}>
           {/* Left Side - Welcome Section */}
           <div className={`hidden lg:flex lg:w-1/2 relative overflow-hidden gradient-shift ${
             isDarkMode 
               ? 'bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'
-              : 'bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800'
+              : 'bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800'
           }`}>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             
             {/* Enhanced Animated background elements */}
             <div className={`absolute top-20 left-20 w-32 h-32 rounded-full blur-xl float1 ${
-              isDarkMode ? 'bg-cyan-400/20' : 'bg-white/10'
+              isDarkMode ? 'bg-cyan-400/20' : 'bg-slate-400/20'
             }`}></div>
             <div className={`absolute bottom-40 right-20 w-24 h-24 rounded-full blur-lg float2 ${
-              isDarkMode ? 'bg-purple-400/30' : 'bg-purple-300/20'
+              isDarkMode ? 'bg-purple-400/30' : 'bg-gray-400/30'
             }`}></div>
             <div className={`absolute top-1/2 left-10 w-16 h-16 rounded-full blur-md float3 ${
-              isDarkMode ? 'bg-blue-400/25' : 'bg-blue-300/20'
+              isDarkMode ? 'bg-blue-400/25' : 'bg-slate-400/25'
             }`}></div>
             <div className={`absolute top-32 right-32 w-20 h-20 rounded-full blur-lg float4 ${
-              isDarkMode ? 'bg-white/20' : 'bg-white/15'
+              isDarkMode ? 'bg-white/20' : 'bg-white/25'
             }`}></div>
             <div className={`absolute bottom-20 left-1/3 w-28 h-28 rounded-full blur-xl float5 ${
-              isDarkMode ? 'bg-cyan-400/30' : 'bg-cyan-300/20'
+              isDarkMode ? 'bg-cyan-400/30' : 'bg-gray-400/30'
             }`}></div>
             <div className={`absolute top-2/3 right-16 w-12 h-12 rounded-full blur-sm float6 ${
-              isDarkMode ? 'bg-pink-400/35' : 'bg-pink-300/25'
+              isDarkMode ? 'bg-pink-400/35' : 'bg-slate-400/35'
             }`}></div>
 
             {/* AI Sparkle Effects */}
@@ -267,7 +273,7 @@ const AuthPage = () => {
                 <div className={`w-12 h-12 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 border group cursor-pointer pulse-glow ${
                   isDarkMode 
                     ? 'bg-cyan-500/20 border-cyan-400/30' 
-                    : 'bg-white/20 border-white/30'
+                    : 'bg-slate-500/20 border-slate-400/30'
                 }`}>
                   <Bot className="w-6 h-6 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
                 </div>
@@ -280,7 +286,7 @@ const AuthPage = () => {
                 <span className={`block bg-clip-text text-transparent ${
                   isDarkMode 
                     ? 'bg-gradient-to-r from-cyan-300 to-purple-300'
-                    : 'bg-gradient-to-r from-yellow-300 to-pink-300'
+                    : 'bg-gradient-to-r from-slate-300 to-gray-300'
                 }`}>
                   AI Magic
                 </span>
@@ -296,7 +302,7 @@ const AuthPage = () => {
                   <div className={`w-10 h-10 rounded-full border-2 border-white ${
                     isDarkMode 
                       ? 'bg-gradient-to-r from-cyan-400 to-purple-400'
-                      : 'bg-gradient-to-r from-pink-400 to-purple-400'
+                      : 'bg-gradient-to-r from-slate-400 to-gray-400'
                   }`}></div>
                   <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full border-2 border-white"></div>
                   <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-2 border-white"></div>
@@ -308,7 +314,7 @@ const AuthPage = () => {
 
           {/* Right Side - Form Section */}
           <div className={`w-full lg:w-1/2 flex items-center justify-center p-8 theme-transition ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
+            isDarkMode ? 'bg-gray-800' : 'bg-white/90'
           }`}>
             <div className="w-full max-w-md">
               <div className="text-center mb-8">
@@ -316,18 +322,18 @@ const AuthPage = () => {
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center group cursor-pointer shadow-lg pulse-glow ${
                     isDarkMode 
                       ? 'bg-gradient-to-r from-cyan-600 to-purple-600'
-                      : 'bg-gradient-to-r from-purple-600 to-blue-600'
+                      : 'bg-gradient-to-r from-slate-600 to-gray-600'
                   }`}>
                     <Bot className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-125 group-hover:rotate-[360deg]" />
                   </div>
                 </div>
                 <h3 className={`text-2xl font-bold mb-2 theme-transition ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
+                  isDarkMode ? 'text-white' : 'text-slate-800'
                 }`}>
                   {isSignIn ? 'Welcome Back' : 'Join MagicPrompt'}
                 </h3>
                 <p className={`theme-transition ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  isDarkMode ? 'text-gray-300' : 'text-slate-600'
                 }`}>
                   {isSignIn 
                     ? 'Sign in to continue creating amazing prompts' 
@@ -345,7 +351,7 @@ const AuthPage = () => {
                   className={`w-full h-12 border-2 transition-all duration-200 hover:scale-[1.02] theme-transition ${
                     isDarkMode 
                       ? 'border-gray-600 bg-gray-700 text-white hover:bg-gray-600'
-                      : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-50'
+                      : 'border-slate-300 bg-white text-slate-900 hover:bg-slate-50'
                   }`}
                   onClick={() => handleSocialAuth('Google')}
                 >
@@ -360,7 +366,7 @@ const AuthPage = () => {
                   className={`w-full h-12 border-2 transition-all duration-200 hover:scale-[1.02] theme-transition ${
                     isDarkMode 
                       ? 'border-gray-600 bg-gray-700 text-white hover:bg-white hover:text-gray-900'
-                      : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-900 hover:text-white'
+                      : 'border-slate-300 bg-white text-slate-900 hover:bg-slate-800 hover:text-white'
                   }`}
                   onClick={() => handleSocialAuth('GitHub')}
                 >
@@ -372,12 +378,12 @@ const AuthPage = () => {
               <div className="relative mb-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className={`w-full border-t theme-transition ${
-                    isDarkMode ? 'border-gray-600' : 'border-gray-300'
+                    isDarkMode ? 'border-gray-600' : 'border-slate-300'
                   }`}></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className={`px-4 theme-transition ${
-                    isDarkMode ? 'bg-gray-800 text-gray-400' : 'bg-white text-gray-500'
+                    isDarkMode ? 'bg-gray-800 text-gray-400' : 'bg-white text-slate-500'
                   }`}>Or continue with email</span>
                 </div>
               </div>
@@ -387,7 +393,7 @@ const AuthPage = () => {
                 {!isSignIn && (
                   <div className="space-y-2">
                     <Label htmlFor="name" className={`text-sm font-medium theme-transition ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      isDarkMode ? 'text-gray-300' : 'text-slate-700'
                     }`}>
                       Full Name
                     </Label>
@@ -402,7 +408,7 @@ const AuthPage = () => {
                           ? 'border-red-500 focus:border-red-500'
                           : isDarkMode 
                             ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                            : 'bg-white border-slate-300 text-slate-900 focus:border-slate-500'
                       }`}
                       required={!isSignIn}
                     />
@@ -414,7 +420,7 @@ const AuthPage = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="email" className={`text-sm font-medium theme-transition ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    isDarkMode ? 'text-gray-300' : 'text-slate-700'
                   }`}>
                     Email Address
                   </Label>
@@ -429,7 +435,7 @@ const AuthPage = () => {
                         ? 'border-red-500 focus:border-red-500'
                         : isDarkMode 
                           ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                          : 'bg-white border-slate-300 text-slate-900 focus:border-slate-500'
                     }`}
                     required
                   />
@@ -440,7 +446,7 @@ const AuthPage = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="password" className={`text-sm font-medium theme-transition ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    isDarkMode ? 'text-gray-300' : 'text-slate-700'
                   }`}>
                     Password
                   </Label>
@@ -456,7 +462,7 @@ const AuthPage = () => {
                           ? 'border-red-500 focus:border-red-500'
                           : isDarkMode 
                             ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                            : 'bg-white border-slate-300 text-slate-900 focus:border-slate-500'
                       }`}
                       required
                     />
@@ -464,7 +470,7 @@ const AuthPage = () => {
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
-                        isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+                        isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-slate-500 hover:text-slate-700'
                       }`}
                     >
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -479,7 +485,7 @@ const AuthPage = () => {
                 {!isSignIn && (
                   <div className="space-y-2">
                     <Label htmlFor="confirmPassword" className={`text-sm font-medium theme-transition ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      isDarkMode ? 'text-gray-300' : 'text-slate-700'
                     }`}>
                       Confirm Password
                     </Label>
@@ -494,7 +500,7 @@ const AuthPage = () => {
                           ? 'border-red-500 focus:border-red-500'
                           : isDarkMode 
                             ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                            : 'bg-white border-slate-300 text-slate-900 focus:border-slate-500'
                       }`}
                       required={!isSignIn}
                     />
@@ -513,11 +519,11 @@ const AuthPage = () => {
                         className={`h-4 w-4 rounded focus:ring-2 ${
                           isDarkMode 
                             ? 'text-cyan-600 focus:ring-cyan-500 border-gray-600 bg-gray-700'
-                            : 'text-purple-600 focus:ring-purple-500 border-gray-300 bg-white'
+                            : 'text-slate-600 focus:ring-slate-500 border-slate-300 bg-white'
                         }`}
                       />
                       <Label htmlFor="remember" className={`ml-2 text-sm theme-transition ${
-                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                        isDarkMode ? 'text-gray-300' : 'text-slate-600'
                       }`}>
                         Remember me
                       </Label>
@@ -527,7 +533,7 @@ const AuthPage = () => {
                       className={`text-sm font-medium transition-colors ${
                         isDarkMode 
                           ? 'text-cyan-400 hover:text-cyan-300'
-                          : 'text-purple-600 hover:text-purple-800'
+                          : 'text-slate-600 hover:text-slate-800'
                       }`}
                     >
                       Forgot password?
@@ -541,7 +547,7 @@ const AuthPage = () => {
                   className={`w-full h-12 text-white font-medium transition-all duration-200 hover:scale-[1.02] shadow-lg ${
                     isDarkMode 
                       ? 'bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700'
-                      : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
+                      : 'bg-gradient-to-r from-slate-600 to-gray-600 hover:from-slate-700 hover:to-gray-700'
                   } disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
                 >
                   {isLoading ? (
@@ -557,7 +563,7 @@ const AuthPage = () => {
 
               <div className="text-center mt-6">
                 <span className={`theme-transition ${
-                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                  isDarkMode ? 'text-gray-400' : 'text-slate-600'
                 }`}>
                   {isSignIn ? "Don't have an account? " : "Already have an account? "}
                 </span>
@@ -570,7 +576,7 @@ const AuthPage = () => {
                   className={`font-medium transition-colors ${
                     isDarkMode 
                       ? 'text-cyan-400 hover:text-cyan-300'
-                      : 'text-purple-600 hover:text-purple-800'
+                      : 'text-slate-600 hover:text-slate-800'
                   }`}
                 >
                   {isSignIn ? 'Sign up' : 'Sign in'}
@@ -578,7 +584,7 @@ const AuthPage = () => {
               </div>
 
               <div className="text-center mt-4">
-                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-slate-400'}`}>
                   Press Enter to submit • Keyboard shortcuts enabled
                 </p>
               </div>

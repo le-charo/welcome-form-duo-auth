@@ -1,22 +1,28 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Mail, Eye, EyeOff, Bot, Moon, Sun, Sparkles } from 'lucide-react';
+import { Github, Mail, Eye, EyeOff, Bot, Moon, Sun, Sparkles, Loader2 } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
+import { validateForm, FormErrors, FormData } from '@/utils/formValidation';
+import PasswordStrengthIndicator from './PasswordStrengthIndicator';
+import { useToast } from "@/hooks/use-toast";
 
 const AuthPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [formData, setFormData] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
     confirmPassword: '',
     name: ''
   });
+  
+  const { toast } = useToast();
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -32,19 +38,87 @@ const AuthPage = () => {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
+    
+    // Validate form
+    const formErrors = validateForm(formData, isSignIn);
+    setErrors(formErrors);
+    
+    if (Object.keys(formErrors).length > 0) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors in the form",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      toast({
+        title: isSignIn ? "Welcome back!" : "Account created!",
+        description: isSignIn 
+          ? "You have successfully signed in to MagicPrompt" 
+          : "Your account has been created successfully",
+      });
+      
+      console.log('Form submitted:', formData);
+    } catch (error) {
+      toast({
+        title: "Authentication Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSocialAuth = (provider: string) => {
-    console.log(`Authenticating with ${provider}`);
-    // Handle social authentication here
+  const handleSocialAuth = async (provider: string) => {
+    setIsLoading(true);
+    
+    try {
+      // Simulate social auth
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      toast({
+        title: `${provider} Authentication`,
+        description: `Successfully signed in with ${provider}`,
+      });
+      
+      console.log(`Authenticating with ${provider}`);
+    } catch (error) {
+      toast({
+        title: "Authentication Error",
+        description: `Failed to sign in with ${provider}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !isLoading) {
+      handleSubmit(e as any);
+    }
   };
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const updateFormData = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
   };
 
   return (
@@ -267,28 +341,30 @@ const AuthPage = () => {
                 <Button
                   type="button"
                   variant="outline"
+                  disabled={isLoading}
                   className={`w-full h-12 border-2 transition-all duration-200 hover:scale-[1.02] theme-transition ${
                     isDarkMode 
                       ? 'border-gray-600 bg-gray-700 text-white hover:bg-gray-600'
                       : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-50'
                   }`}
-                  onClick={() => handleSocialAuth('google')}
+                  onClick={() => handleSocialAuth('Google')}
                 >
-                  <FcGoogle className="w-5 h-5 mr-3" />
+                  {isLoading ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <FcGoogle className="w-5 h-5 mr-3" />}
                   Continue with Google
                 </Button>
                 
                 <Button
                   type="button"
                   variant="outline"
+                  disabled={isLoading}
                   className={`w-full h-12 border-2 transition-all duration-200 hover:scale-[1.02] theme-transition ${
                     isDarkMode 
                       ? 'border-gray-600 bg-gray-700 text-white hover:bg-white hover:text-gray-900'
                       : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-900 hover:text-white'
                   }`}
-                  onClick={() => handleSocialAuth('github')}
+                  onClick={() => handleSocialAuth('GitHub')}
                 >
-                  <Github className="w-5 h-5 mr-3" />
+                  {isLoading ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Github className="w-5 h-5 mr-3" />}
                   Continue with GitHub
                 </Button>
               </div>
@@ -307,7 +383,7 @@ const AuthPage = () => {
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="space-y-5">
                 {!isSignIn && (
                   <div className="space-y-2">
                     <Label htmlFor="name" className={`text-sm font-medium theme-transition ${
@@ -320,14 +396,19 @@ const AuthPage = () => {
                       type="text"
                       placeholder="Enter your full name"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => updateFormData('name', e.target.value)}
                       className={`h-12 border-2 transition-colors theme-transition ${
-                        isDarkMode 
-                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                        errors.name 
+                          ? 'border-red-500 focus:border-red-500'
+                          : isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
                       }`}
                       required={!isSignIn}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                    )}
                   </div>
                 )}
                 
@@ -342,14 +423,19 @@ const AuthPage = () => {
                     type="email"
                     placeholder="Enter your email"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => updateFormData('email', e.target.value)}
                     className={`h-12 border-2 transition-colors theme-transition ${
-                      isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                        : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                      errors.email 
+                        ? 'border-red-500 focus:border-red-500'
+                        : isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
                     }`}
                     required
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
                 </div>
                 
                 <div className="space-y-2">
@@ -364,11 +450,13 @@ const AuthPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                       value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      onChange={(e) => updateFormData('password', e.target.value)}
                       className={`h-12 border-2 transition-colors pr-12 theme-transition ${
-                        isDarkMode 
-                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                        errors.password 
+                          ? 'border-red-500 focus:border-red-500'
+                          : isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
                       }`}
                       required
                     />
@@ -382,6 +470,10 @@ const AuthPage = () => {
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                  )}
+                  {!isSignIn && <PasswordStrengthIndicator password={formData.password} isDarkMode={isDarkMode} />}
                 </div>
 
                 {!isSignIn && (
@@ -396,14 +488,19 @@ const AuthPage = () => {
                       type="password"
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
-                      onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                      onChange={(e) => updateFormData('confirmPassword', e.target.value)}
                       className={`h-12 border-2 transition-colors theme-transition ${
-                        isDarkMode 
-                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
+                        errors.confirmPassword 
+                          ? 'border-red-500 focus:border-red-500'
+                          : isDarkMode 
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-cyan-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-purple-500'
                       }`}
                       required={!isSignIn}
                     />
+                    {errors.confirmPassword && (
+                      <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                    )}
                   </div>
                 )}
 
@@ -440,13 +537,21 @@ const AuthPage = () => {
 
                 <Button
                   type="submit"
+                  disabled={isLoading}
                   className={`w-full h-12 text-white font-medium transition-all duration-200 hover:scale-[1.02] shadow-lg ${
                     isDarkMode 
                       ? 'bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700'
                       : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
-                  }`}
+                  } disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
                 >
-                  {isSignIn ? 'Sign In to MagicPrompt' : 'Create Account'}
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      {isSignIn ? 'Signing in...' : 'Creating account...'}
+                    </div>
+                  ) : (
+                    isSignIn ? 'Sign In to MagicPrompt' : 'Create Account'
+                  )}
                 </Button>
               </form>
 
@@ -458,7 +563,10 @@ const AuthPage = () => {
                 </span>
                 <button
                   type="button"
-                  onClick={() => setIsSignIn(!isSignIn)}
+                  onClick={() => {
+                    setIsSignIn(!isSignIn);
+                    setErrors({});
+                  }}
                   className={`font-medium transition-colors ${
                     isDarkMode 
                       ? 'text-cyan-400 hover:text-cyan-300'
@@ -467,6 +575,12 @@ const AuthPage = () => {
                 >
                   {isSignIn ? 'Sign up' : 'Sign in'}
                 </button>
+              </div>
+
+              <div className="text-center mt-4">
+                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                  Press Enter to submit • Keyboard shortcuts enabled
+                </p>
               </div>
             </div>
           </div>
